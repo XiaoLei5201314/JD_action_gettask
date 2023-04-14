@@ -1,0 +1,24 @@
+name: JD Signin
+
+on: 
+  schedule:    
+   # 每天国际时间 9:30 运行一次, 中国时间 17:30   
+   - cron: '30 9 * * *'
+  workflow_dispatch: 
+
+jobs:
+ signin: 
+   name: JD Signin
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout
+     uses: actions/checkout@v2
+     
+   - name: Set secrets
+     env: 
+       JD_COOKIE: ${{ secrets.JD_COOKIE }}
+  
+   - name: Signin  
+     uses: jerryzhou7/jd-auto-signin@main
+     with:    
+       JD_COOKIE: ${{ env.JD_COOKIE }}
